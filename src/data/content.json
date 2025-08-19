@@ -1,0 +1,21 @@
+[
+  {
+    "id": 1,
+    "koreanWord": "퇴행성관절염",
+    "vietnameseWord": "Thoái hóa khớp",
+    "difficulty": 2,
+    "imageURL": "",
+    "exampleKo": "할머니께서 퇴행성관절염 때문에 오래 걷지 못하세요.",
+    "exampleVi": "Bà không thể đi bộ lâu vì bị thoái hóa khớp.",
+    "audioURL": "",
+    "audioWordKoURL": "",
+    "audioExampleKoURL": "",
+    "relatedTerms": [
+      { "korean": "물리치료", "vietnamese": "Vật lý trị liệu", "isCorrect": false },
+      { "korean": "녹창", "vietnamese": "Loét tỳ đè", "isCorrect": false },
+      { "korean": "가족력", "vietnamese": "Tiền sử gia đình", "isCorrect": true }
+    ],
+    "writingChallenge": "가족력이 있어서 조심해야 해요."
+  }
+]
+
