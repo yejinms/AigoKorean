@@ -40,6 +40,16 @@ export default function MainScreen({ navigation }: Props) {
           <Text style={styles.cardArrow}>→</Text>
         </View>
       </Pressable>
+
+      <Pressable style={styles.card} onPress={() => navigation.navigate('Review')}>
+        <View style={styles.cardContent}>
+          <View style={styles.cardLeft}>
+            <View style={styles.cardDot} />
+            <Text style={styles.cardTitle}>복습하기</Text>
+          </View>
+          <Text style={styles.cardArrow}>→</Text>
+        </View>
+      </Pressable>
     </View>
   );
 }

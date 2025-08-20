@@ -5,11 +5,13 @@ import { Image, View, StyleSheet } from 'react-native';
 import MainScreen from './src/screens/MainScreen';
 import VocabularyScreen from './src/screens/VocabularyScreen';
 import WritingScreen from './src/screens/WritingScreen';
+import ReviewScreen from './src/screens/ReviewScreen';
 
 export type RootStackParamList = {
   Main: undefined;
   Vocabulary: undefined;
   Writing: undefined;
+  Review: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -43,6 +45,11 @@ export default function App() {
           name="Writing"
           component={WritingScreen}
           options={{ title: 'Viết' }}
+        />
+        <Stack.Screen
+          name="Review"
+          component={ReviewScreen}
+          options={{ title: '복습하기' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

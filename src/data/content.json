@@ -1,6 +1,7 @@
 [
   {
     "id": 1,
+    "category": "의학/건강",
     "koreanWord": "퇴행성관절염",
     "vietnameseWord": "Thoái hóa khớp",
     "difficulty": 2,
@@ -11,11 +12,372 @@
     "audioWordKoURL": "",
     "audioExampleKoURL": "",
     "relatedTerms": [
-      { "korean": "물리치료", "vietnamese": "Vật lý trị liệu", "isCorrect": false },
-      { "korean": "녹창", "vietnamese": "Loét tỳ đè", "isCorrect": false },
-      { "korean": "가족력", "vietnamese": "Tiền sử gia đình", "isCorrect": true }
+      { "korean": "물리치료", "vietnamese": "Vật lý trị liệu" },
+      { "korean": "관절염", "vietnamese": "Viêm khớp" },
+      { "korean": "통증", "vietnamese": "Đau" }
     ],
     "writingChallenge": "가족력이 있어서 조심해야 해요."
+  },
+  {
+    "id": 2,
+    "category": "요양보호사",
+    "koreanWord": "요양보호사",
+    "vietnameseWord": "Người chăm sóc người cao tuổi",
+    "difficulty": 1,
+    "imageURL": "",
+    "exampleKo": "요양보호사가 할머니의 목욕을 도와드렸습니다.",
+    "exampleVi": "Người chăm sóc đã giúp bà tắm rửa.",
+    "audioURL": "",
+    "audioWordKoURL": "",
+    "audioExampleKoURL": "",
+    "relatedTerms": [
+      { "korean": "방문요양", "vietnamese": "Chăm sóc tại nhà" },
+      { "korean": "방문목욕", "vietnamese": "Hỗ trợ tắm tại nhà" },
+      { "korean": "재가급여", "vietnamese": "Dịch vụ chăm sóc tại nhà" }
+    ],
+    "writingChallenge": "요양보호사가 방문해서 도움을 주었습니다."
+  },
+  {
+    "id": 3,
+    "category": "요양보호사",
+    "koreanWord": "장기요양보험",
+    "vietnameseWord": "Bảo hiểm chăm sóc dài hạn",
+    "difficulty": 2,
+    "imageURL": "",
+    "exampleKo": "장기요양보험으로 할머니의 돌봄 서비스를 받을 수 있습니다.",
+    "exampleVi": "Có thể nhận dịch vụ chăm sóc bà thông qua bảo hiểm chăm sóc dài hạn.",
+    "audioURL": "",
+    "audioWordKoURL": "",
+    "audioExampleKoURL": "",
+    "relatedTerms": [
+      { "korean": "수급자", "vietnamese": "Người được hưởng dịch vụ" },
+      { "korean": "급여", "vietnamese": "Dịch vụ được cung cấp" },
+      { "korean": "본인부담금", "vietnamese": "Phí tự chi trả" }
+    ],
+    "writingChallenge": "장기요양보험으로 서비스를 받을 수 있어요."
+  },
+  {
+    "id": 4,
+    "category": "요양보호사",
+    "koreanWord": "방문요양",
+    "vietnameseWord": "Chăm sóc tại nhà",
+    "difficulty": 1,
+    "imageURL": "",
+    "exampleKo": "방문요양 서비스로 할머니가 집에서 편하게 지내고 있습니다.",
+    "exampleVi": "Bà đang sống thoải mái ở nhà nhờ dịch vụ chăm sóc tại nhà.",
+    "audioURL": "",
+    "audioWordKoURL": "",
+    "audioExampleKoURL": "",
+    "relatedTerms": [
+      { "korean": "재가급여", "vietnamese": "Dịch vụ tại nhà" },
+      { "korean": "방문간호", "vietnamese": "Chăm sóc điều dưỡng tại nhà" },
+      { "korean": "욕구사정", "vietnamese": "Đánh giá nhu cầu" }
+    ],
+    "writingChallenge": "방문요양 서비스가 정말 도움이 됩니다."
+  },
+  {
+    "id": 5,
+    "category": "요양보호사",
+    "koreanWord": "등급판정",
+    "vietnameseWord": "Đánh giá mức độ",
+    "difficulty": 3,
+    "imageURL": "",
+    "exampleKo": "등급판정을 통해 어떤 서비스를 받을 수 있는지 결정됩니다.",
+    "exampleVi": "Thông qua đánh giá mức độ để quyết định dịch vụ nào có thể nhận được.",
+    "audioURL": "",
+    "audioWordKoURL": "",
+    "audioExampleKoURL": "",
+    "relatedTerms": [
+      { "korean": "인정조사", "vietnamese": "Điều tra công nhận" },
+      { "korean": "수급권자", "vietnamese": "Người có quyền hưởng dịch vụ" },
+      { "korean": "등급외자", "vietnamese": "Người không đủ tiêu chuẩn" }
+    ],
+    "writingChallenge": "등급판정 결과에 따라 서비스가 결정됩니다."
+  },
+  {
+    "id": 6,
+    "category": "요양보호사",
+    "koreanWord": "가족요양보호사",
+    "vietnameseWord": "Người chăm sóc gia đình",
+    "difficulty": 1,
+    "imageURL": "",
+    "exampleKo": "가족요양보호사는 가족을 직접 돌보고 돈을 받는 요양보호사입니다.",
+    "exampleVi": "Người chăm sóc gia đình là người chăm sóc trực tiếp cho gia đình và nhận tiền.",
+    "audioURL": "",
+    "audioWordKoURL": "",
+    "audioExampleKoURL": "",
+    "relatedTerms": [
+      { "korean": "가족요양비", "vietnamese": "Phí chăm sóc gia đình" },
+      { "korean": "재가급여", "vietnamese": "Dịch vụ tại nhà" },
+      { "korean": "방문요양", "vietnamese": "Chăm sóc tại nhà" }
+    ],
+    "writingChallenge": "가족요양보호사가 할머니를 돌보고 있습니다."
+  },
+  {
+    "id": 7,
+    "category": "요양보호사",
+    "koreanWord": "가족요양비",
+    "vietnameseWord": "Phí chăm sóc gia đình",
+    "difficulty": 2,
+    "imageURL": "",
+    "exampleKo": "주변에 돌봐줄 기관이 없을 때 가족이 돌보면 가족요양비를 받을 수 있습니다.",
+    "exampleVi": "Khi không có cơ quan nào xung quanh để chăm sóc, gia đình có thể nhận phí chăm sóc gia đình nếu họ chăm sóc.",
+    "audioURL": "",
+    "audioWordKoURL": "",
+    "audioExampleKoURL": "",
+    "relatedTerms": [
+      { "korean": "가족요양보호사", "vietnamese": "Người chăm sóc gia đình" },
+      { "korean": "현금지급", "vietnamese": "Chi trả bằng tiền mặt" },
+      { "korean": "재가급여", "vietnamese": "Dịch vụ tại nhà" }
+    ],
+    "writingChallenge": "가족요양비로 할머니를 돌볼 수 있어요."
+  },
+  {
+    "id": 8,
+    "category": "요양보호사",
+    "koreanWord": "급여",
+    "vietnameseWord": "Dịch vụ được cung cấp",
+    "difficulty": 1,
+    "imageURL": "",
+    "exampleKo": "장기요양기관에서 제공하는 다양한 서비스를 급여라고 합니다.",
+    "exampleVi": "Các dịch vụ đa dạng được cung cấp bởi cơ quan chăm sóc dài hạn được gọi là dịch vụ.",
+    "audioURL": "",
+    "audioWordKoURL": "",
+    "audioExampleKoURL": "",
+    "relatedTerms": [
+      { "korean": "급여계약", "vietnamese": "Hợp đồng dịch vụ" },
+      { "korean": "급여비용", "vietnamese": "Chi phí dịch vụ" },
+      { "korean": "장기요양기관", "vietnamese": "Cơ quan chăm sóc dài hạn" }
+    ],
+    "writingChallenge": "급여 서비스를 받을 수 있어서 좋습니다."
+  },
+  {
+    "id": 9,
+    "category": "요양보호사",
+    "koreanWord": "급여계약",
+    "vietnameseWord": "Hợp đồng dịch vụ",
+    "difficulty": 2,
+    "imageURL": "",
+    "exampleKo": "노인과 기관이 어떤 서비스를 받을지 미리 정하고 서류로 약속하는 것을 급여계약이라고 합니다.",
+    "exampleVi": "Việc người cao tuổi và cơ quan thỏa thuận trước về dịch vụ nào sẽ nhận và cam kết bằng giấy tờ được gọi là hợp đồng dịch vụ.",
+    "audioURL": "",
+    "audioWordKoURL": "",
+    "audioExampleKoURL": "",
+    "relatedTerms": [
+      { "korean": "급여", "vietnamese": "Dịch vụ được cung cấp" },
+      { "korean": "서류", "vietnamese": "Giấy tờ" },
+      { "korean": "약속", "vietnamese": "Hứa hẹn" }
+    ],
+    "writingChallenge": "급여계약을 체결해야 서비스를 받을 수 있어요."
+  },
+  {
+    "id": 10,
+    "category": "요양보호사",
+    "koreanWord": "급여비용",
+    "vietnameseWord": "Chi phí dịch vụ",
+    "difficulty": 2,
+    "imageURL": "",
+    "exampleKo": "기관이 서비스를 제공하고 받는 돈을 급여비용이라고 합니다.",
+    "exampleVi": "Số tiền mà cơ quan nhận được khi cung cấp dịch vụ được gọi là chi phí dịch vụ.",
+    "audioURL": "",
+    "audioWordKoURL": "",
+    "audioExampleKoURL": "",
+    "relatedTerms": [
+      { "korean": "급여", "vietnamese": "Dịch vụ được cung cấp" },
+      { "korean": "서비스", "vietnamese": "Dịch vụ" },
+      { "korean": "비용", "vietnamese": "Chi phí" }
+    ],
+    "writingChallenge": "급여비용을 확인하고 서비스를 이용하세요."
+  },
+  {
+    "id": 11,
+    "category": "요양보호사",
+    "koreanWord": "노인요양시설",
+    "vietnameseWord": "Cơ sở chăm sóc người cao tuổi",
+    "difficulty": 2,
+    "imageURL": "",
+    "exampleKo": "노인이 24시간 생활하며 돌봄을 받는 시설을 노인요양시설이라고 합니다.",
+    "exampleVi": "Cơ sở nơi người cao tuổi sinh sống 24 giờ và nhận sự chăm sóc được gọi là cơ sở chăm sóc người cao tuổi.",
+    "audioURL": "",
+    "audioWordKoURL": "",
+    "audioExampleKoURL": "",
+    "relatedTerms": [
+      { "korean": "24시간", "vietnamese": "24 giờ" },
+      { "korean": "생활", "vietnamese": "Sinh sống" },
+      { "korean": "돌봄", "vietnamese": "Chăm sóc" }
+    ],
+    "writingChallenge": "노인요양시설에서 할머니가 편하게 지내고 있어요."
+  },
+  {
+    "id": 12,
+    "category": "요양보호사",
+    "koreanWord": "단기보호기관",
+    "vietnameseWord": "Cơ quan bảo vệ ngắn hạn",
+    "difficulty": 2,
+    "imageURL": "",
+    "exampleKo": "노인이 짧은 기간 동안 머물며 돌봄을 받는 기관을 단기보호기관이라고 합니다.",
+    "exampleVi": "Cơ quan nơi người cao tuổi ở lại trong thời gian ngắn và nhận sự chăm sóc được gọi là cơ quan bảo vệ ngắn hạn.",
+    "audioURL": "",
+    "audioWordKoURL": "",
+    "audioExampleKoURL": "",
+    "relatedTerms": [
+      { "korean": "짧은 기간", "vietnamese": "Thời gian ngắn" },
+      { "korean": "머물다", "vietnamese": "Ở lại" },
+      { "korean": "돌봄", "vietnamese": "Chăm sóc" }
+    ],
+    "writingChallenge": "단기보호기관에서 일시적으로 돌봄을 받을 수 있어요."
+  },
+  {
+    "id": 13,
+    "category": "요양보호사",
+    "koreanWord": "도서벽지",
+    "vietnameseWord": "Vùng sâu vùng xa",
+    "difficulty": 3,
+    "imageURL": "",
+    "exampleKo": "서비스 받기 어려운 외딴 섬이나 시골 지역을 도서벽지라고 합니다.",
+    "exampleVi": "Vùng sâu vùng xa là những hòn đảo hẻo lánh hoặc vùng nông thôn khó tiếp cận dịch vụ.",
+    "audioURL": "",
+    "audioWordKoURL": "",
+    "audioExampleKoURL": "",
+    "relatedTerms": [
+      { "korean": "외딴 섬", "vietnamese": "Đảo hẻo lánh" },
+      { "korean": "시골", "vietnamese": "Nông thôn" },
+      { "korean": "서비스", "vietnamese": "Dịch vụ" }
+    ],
+    "writingChallenge": "도서벽지에 사는 할머니를 위해 특별한 서비스가 필요해요."
+  },
+  {
+    "id": 14,
+    "category": "요양보호사",
+    "koreanWord": "등급외자",
+    "vietnameseWord": "Người không đủ tiêu chuẩn",
+    "difficulty": 2,
+    "imageURL": "",
+    "exampleKo": "장기요양보험 등급을 받지 못한 사람을 등급외자라고 합니다.",
+    "exampleVi": "Người không nhận được cấp độ bảo hiểm chăm sóc dài hạn được gọi là người không đủ tiêu chuẩn.",
+    "audioURL": "",
+    "audioWordKoURL": "",
+    "audioExampleKoURL": "",
+    "relatedTerms": [
+      { "korean": "장기요양보험", "vietnamese": "Bảo hiểm chăm sóc dài hạn" },
+      { "korean": "등급", "vietnamese": "Cấp độ" },
+      { "korean": "판정", "vietnamese": "Đánh giá" }
+    ],
+    "writingChallenge": "등급외자는 다른 방법으로 도움을 받아야 해요."
+  },
+  {
+    "id": 15,
+    "category": "요양보호사",
+    "koreanWord": "방문간호",
+    "vietnameseWord": "Chăm sóc điều dưỡng tại nhà",
+    "difficulty": 2,
+    "imageURL": "",
+    "exampleKo": "간호사가 노인의 집으로 방문해 간호 서비스를 제공하는 것을 방문간호라고 합니다.",
+    "exampleVi": "Việc y tá đến nhà người cao tuổi để cung cấp dịch vụ điều dưỡng được gọi là chăm sóc điều dưỡng tại nhà.",
+    "audioURL": "",
+    "audioWordKoURL": "",
+    "audioExampleKoURL": "",
+    "relatedTerms": [
+      { "korean": "간호사", "vietnamese": "Y tá" },
+      { "korean": "방문", "vietnamese": "Thăm viếng" },
+      { "korean": "간호 서비스", "vietnamese": "Dịch vụ điều dưỡng" }
+    ],
+    "writingChallenge": "방문간호 서비스로 할머니의 건강을 체크할 수 있어요."
+  },
+  {
+    "id": 16,
+    "category": "요양보호사",
+    "koreanWord": "방문목욕",
+    "vietnameseWord": "Hỗ trợ tắm tại nhà",
+    "difficulty": 1,
+    "imageURL": "",
+    "exampleKo": "요양보호사가 노인의 집으로 방문해 목욕을 도와주는 것을 방문목욕이라고 합니다.",
+    "exampleVi": "Việc người chăm sóc đến nhà người cao tuổi để giúp tắm rửa được gọi là hỗ trợ tắm tại nhà.",
+    "audioURL": "",
+    "audioWordKoURL": "",
+    "audioExampleKoURL": "",
+    "relatedTerms": [
+      { "korean": "요양보호사", "vietnamese": "Người chăm sóc người cao tuổi" },
+      { "korean": "방문", "vietnamese": "Thăm viếng" },
+      { "korean": "목욕", "vietnamese": "Tắm rửa" }
+    ],
+    "writingChallenge": "방문목욕 서비스가 할머니에게 정말 도움이 됩니다."
+  },
+  {
+    "id": 17,
+    "category": "요양보호사",
+    "koreanWord": "방문확인",
+    "vietnameseWord": "Xác nhận thăm viếng",
+    "difficulty": 2,
+    "imageURL": "",
+    "exampleKo": "직접 찾아가서 사실을 확인하는 것을 방문확인이라고 합니다.",
+    "exampleVi": "Việc trực tiếp đến nơi để xác nhận sự thật được gọi là xác nhận thăm viếng.",
+    "audioURL": "",
+    "audioWordKoURL": "",
+    "audioExampleKoURL": "",
+    "relatedTerms": [
+      { "korean": "직접", "vietnamese": "Trực tiếp" },
+      { "korean": "찾아가다", "vietnamese": "Tìm đến" },
+      { "korean": "사실", "vietnamese": "Sự thật" }
+    ],
+    "writingChallenge": "방문확인을 통해 정확한 상황을 파악할 수 있어요."
+  },
+  {
+    "id": 18,
+    "category": "요양보호사",
+    "koreanWord": "보조기기",
+    "vietnameseWord": "Thiết bị hỗ trợ",
+    "difficulty": 2,
+    "imageURL": "",
+    "exampleKo": "노인이 생활을 더 편하게 할 수 있도록 돕는 도구를 보조기기라고 합니다.",
+    "exampleVi": "Thiết bị hỗ trợ là công cụ giúp người cao tuổi sống thoải mái hơn.",
+    "audioURL": "",
+    "audioWordKoURL": "",
+    "audioExampleKoURL": "",
+    "relatedTerms": [
+      { "korean": "생활", "vietnamese": "Cuộc sống" },
+      { "korean": "편하다", "vietnamese": "Thoải mái" },
+      { "korean": "도구", "vietnamese": "Công cụ" }
+    ],
+    "writingChallenge": "보조기기를 사용하면 할머니가 더 편하게 생활할 수 있어요."
+  },
+  {
+    "id": 19,
+    "category": "요양보호사",
+    "koreanWord": "보험급여",
+    "vietnameseWord": "Trợ cấp bảo hiểm",
+    "difficulty": 2,
+    "imageURL": "",
+    "exampleKo": "질병이나 부상 등을 위해 보험에서 현금이나 물건으로 주는 지원금을 보험급여라고 합니다.",
+    "exampleVi": "Trợ cấp bảo hiểm là khoản hỗ trợ bằng tiền mặt hoặc vật chất mà bảo hiểm cung cấp cho bệnh tật hoặc thương tích.",
+    "audioURL": "",
+    "audioWordKoURL": "",
+    "audioExampleKoURL": "",
+    "relatedTerms": [
+      { "korean": "질병", "vietnamese": "Bệnh tật" },
+      { "korean": "부상", "vietnamese": "Thương tích" },
+      { "korean": "지원금", "vietnamese": "Khoản hỗ trợ" }
+    ],
+    "writingChallenge": "보험급여로 의료비를 지원받을 수 있어요."
+  },
+  {
+    "id": 20,
+    "category": "요양보호사",
+    "koreanWord": "복지용구",
+    "vietnameseWord": "Dụng cụ phúc lợi",
+    "difficulty": 2,
+    "imageURL": "",
+    "exampleKo": "노인의 생활과 건강을 돕기 위해 사용하는 물건을 복지용구라고 합니다.",
+    "exampleVi": "Dụng cụ phúc lợi là những vật dụng được sử dụng để giúp đỡ cuộc sống và sức khỏe của người cao tuổi.",
+    "audioURL": "",
+    "audioWordKoURL": "",
+    "audioExampleKoURL": "",
+    "relatedTerms": [
+      { "korean": "생활", "vietnamese": "Cuộc sống" },
+      { "korean": "건강", "vietnamese": "Sức khỏe" },
+      { "korean": "물건", "vietnamese": "Vật dụng" }
+    ],
+    "writingChallenge": "복지용구를 사용하면 할머니의 생활이 더 편해집니다."
   }
 ]
 
