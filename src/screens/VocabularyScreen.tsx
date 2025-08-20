@@ -149,6 +149,7 @@ export default function VocabularyScreen() {
         difficultWords.push({
           id: wordItem.id,
           word: wordItem.koreanWord,
+          vietnameseWord: wordItem.vietnameseWord,
           category: wordItem.category || '기타',
           timestamp: new Date().toISOString()
         });

@@ -31,10 +31,20 @@ export default function MainScreen({ navigation }: Props) {
         </View>
       </Pressable>
 
+      <Pressable style={styles.card} onPress={() => navigation.navigate('MessageWriting')}>
+        <View style={styles.cardContent}>
+          <View style={styles.cardLeft}>
+            <View style={[styles.cardDot, { backgroundColor: '#9C27B0' }]} />
+            <Text style={styles.cardTitle}>문자 연습</Text>
+          </View>
+          <Text style={styles.cardArrow}>→</Text>
+        </View>
+      </Pressable>
+
       <Pressable style={styles.card} onPress={() => navigation.navigate('Vocabulary')}>
         <View style={styles.cardContent}>
           <View style={styles.cardLeft}>
-            <View style={styles.cardDot} />
+            <View style={[styles.cardDot, { backgroundColor: '#FFC107' }]} />
             <Text style={styles.cardTitle}>Từ vựng</Text>
           </View>
           <Text style={styles.cardArrow}>→</Text>
@@ -44,7 +54,7 @@ export default function MainScreen({ navigation }: Props) {
       <Pressable style={styles.card} onPress={() => navigation.navigate('Review')}>
         <View style={styles.cardContent}>
           <View style={styles.cardLeft}>
-            <View style={styles.cardDot} />
+            <View style={[styles.cardDot, { backgroundColor: '#1E88E5' }]} />
             <Text style={styles.cardTitle}>복습하기</Text>
           </View>
           <Text style={styles.cardArrow}>→</Text>

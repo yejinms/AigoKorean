@@ -6,12 +6,14 @@ import MainScreen from './src/screens/MainScreen';
 import VocabularyScreen from './src/screens/VocabularyScreen';
 import WritingScreen from './src/screens/WritingScreen';
 import ReviewScreen from './src/screens/ReviewScreen';
+import MessageWritingScreen from './src/screens/MessageWritingScreen';
 
 export type RootStackParamList = {
   Main: undefined;
   Vocabulary: undefined;
   Writing: undefined;
   Review: undefined;
+  MessageWriting: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -50,6 +52,11 @@ export default function App() {
           name="Review"
           component={ReviewScreen}
           options={{ title: '복습하기' }}
+        />
+        <Stack.Screen
+          name="MessageWriting"
+          component={MessageWritingScreen}
+          options={{ title: '문자 연습' }}
         />
       </Stack.Navigator>
     </NavigationContainer>
