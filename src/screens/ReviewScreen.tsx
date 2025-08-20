@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, Text, View, Pressable } from 'react-native';
+import { useEffect, useState, useRef } from 'react';
+import { ScrollView, StyleSheet, Text, View, Pressable, Modal, Animated } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import content from '@/data/content.json';
 
@@ -14,58 +14,136 @@ type Item = {
 };
 
 export default function ReviewScreen() {
+  const [difficultWords, setDifficultWords] = useState<any[]>([]);
+  const [wrongSentences, setWrongSentences] = useState<any[]>([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedWord, setSelectedWord] = useState<any>(null);
   const [checkedWords, setCheckedWords] = useState<Record<number, boolean>>({});
-  const [filteredContent, setFilteredContent] = useState<Item[]>([]);
+  
+  // 애니메이션을 위한 ref들
+  const fadeAnim = useRef(new Animated.Value(1)).current;
+  const scaleAnim = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
-    loadCheckedWords();
+    loadReviewData();
   }, []);
 
-  const loadCheckedWords = async () => {
+  const loadReviewData = async () => {
     try {
-      const saved = await AsyncStorage.getItem('checkedWords');
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        setCheckedWords(parsed);
-        filterCheckedContent(parsed);
+      // 못 외운 단어들 로드
+      const savedDifficultWords = await AsyncStorage.getItem('difficultWords');
+      if (savedDifficultWords) {
+        setDifficultWords(JSON.parse(savedDifficultWords));
+      }
+
+      // 틀린 문장들 로드
+      const savedWrongSentences = await AsyncStorage.getItem('wrongSentences');
+      if (savedWrongSentences) {
+        setWrongSentences(JSON.parse(savedWrongSentences));
       }
     } catch (error) {
-      console.error('체크된 단어 로드 실패:', error);
+      console.error('복습 데이터 로드 실패:', error);
     }
   };
 
-  const filterCheckedContent = (checked: Record<number, boolean>) => {
-    const checkedIds = Object.keys(checked).filter(id => checked[Number(id)]);
-    const filtered = (content as Item[]).filter(item => 
-      checkedIds.includes(item.id.toString())
-    );
-    setFilteredContent(filtered);
+  const removeDifficultWord = async (id: number) => {
+    try {
+      const newDifficultWords = difficultWords.filter(word => word.id !== id);
+      setDifficultWords(newDifficultWords);
+      await AsyncStorage.setItem('difficultWords', JSON.stringify(newDifficultWords));
+    } catch (error) {
+      console.error('못 외운 단어 제거 실패:', error);
+    }
   };
 
-  const toggleCheck = async (id: number) => {
-    const newChecked = { ...checkedWords, [id]: !checkedWords[id] };
-    setCheckedWords(newChecked);
-    
+  const removeWrongSentence = async (id: number) => {
     try {
-      await AsyncStorage.setItem('checkedWords', JSON.stringify(newChecked));
-      filterCheckedContent(newChecked);
+      const newWrongSentences = wrongSentences.filter(sentence => sentence.id !== id);
+      setWrongSentences(newWrongSentences);
+      await AsyncStorage.setItem('wrongSentences', JSON.stringify(newWrongSentences));
     } catch (error) {
-      console.error('체크 상태 저장 실패:', error);
+      console.error('틀린 문장 제거 실패:', error);
+    }
+  };
+
+  // 상세보기 모달 열기
+  const openWordDetail = (word: any) => {
+    // content.json에서 해당 단어의 전체 정보 찾기
+    const fullWordData = (content as any[]).find(item => item.id === word.id);
+    if (fullWordData) {
+      setSelectedWord(fullWordData);
+      setModalVisible(true);
+    }
+  };
+
+  // 상세보기 모달 닫기
+  const closeModal = () => {
+    setModalVisible(false);
+    setSelectedWord(null);
+  };
+
+  // 체크박스 토글 (외웠어요)
+  const toggleCheckbox = async (wordId: number) => {
+    const newCheckedWords = { ...checkedWords, [wordId]: !checkedWords[wordId] };
+    setCheckedWords(newCheckedWords);
+    
+    // 체크된 단어는 복습에서 제거 (애니메이션 후)
+    if (newCheckedWords[wordId]) {
+      // 체크 애니메이션
+      Animated.sequence([
+        // 체크 표시 애니메이션
+        Animated.parallel([
+          Animated.timing(scaleAnim, {
+            toValue: 1.2,
+            duration: 200,
+            useNativeDriver: true,
+          }),
+          Animated.timing(fadeAnim, {
+            toValue: 0.8,
+            duration: 200,
+            useNativeDriver: true,
+          }),
+        ]),
+        // 사라지는 애니메이션
+        Animated.parallel([
+          Animated.timing(scaleAnim, {
+            toValue: 0,
+            duration: 300,
+            useNativeDriver: true,
+          }),
+          Animated.timing(fadeAnim, {
+            toValue: 0,
+            duration: 300,
+            useNativeDriver: true,
+          }),
+        ]),
+      ]).start(() => {
+        // 애니메이션 완료 후 단어 제거
+        removeDifficultWord(wordId);
+        // 애니메이션 값 초기화
+        scaleAnim.setValue(1);
+        fadeAnim.setValue(1);
+      });
     }
   };
 
   const getCategoryStats = () => {
-    const stats: Record<string, { total: number; checked: number }> = {};
+    const stats: Record<string, { difficult: number; wrong: number }> = {};
     
-    (content as Item[]).forEach(item => {
-      if (!stats[item.category]) {
-        stats[item.category] = { total: 0, checked: 0 };
+    // 못 외운 단어 카테고리별 통계
+    difficultWords.forEach(word => {
+      if (!stats[word.category]) {
+        stats[word.category] = { difficult: 0, wrong: 0 };
       }
-      stats[item.category].total++;
-      
-      if (checkedWords[item.id]) {
-        stats[item.category].checked++;
+      stats[word.category].difficult++;
+    });
+
+    // 틀린 문장 카테고리별 통계
+    wrongSentences.forEach(sentence => {
+      if (!stats[sentence.category]) {
+        stats[sentence.category] = { difficult: 0, wrong: 0 };
       }
+      stats[sentence.category].wrong++;
     });
     
     return stats;
@@ -79,50 +157,136 @@ export default function ReviewScreen() {
       
       {/* 진행률 요약 */}
       <View style={styles.statsContainer}>
-        <Text style={styles.statsTitle}>전체 진행률</Text>
-        {Object.entries(stats).map(([category, { total, checked }]) => (
+        <Text style={styles.statsTitle}>복습 현황</Text>
+        {Object.entries(stats).map(([category, { difficult, wrong }]) => (
           <View key={category} style={styles.statRow}>
             <Text style={styles.categoryName}>{category}</Text>
-            <Text style={styles.progressText}>
-              {checked}/{total} ({Math.round((checked/total)*100)}%)
-            </Text>
+            <View style={styles.statDetails}>
+              <Text style={styles.progressText}>
+                못 외운 단어: {difficult}개
+              </Text>
+              <Text style={styles.progressText}>
+                틀린 문장: {wrong}개
+              </Text>
+            </View>
           </View>
         ))}
       </View>
 
-      {/* 체크된 단어 목록 */}
-      <Text style={styles.sectionTitle}>체크한 단어들</Text>
-      {filteredContent.length === 0 ? (
-        <Text style={styles.emptyText}>아직 체크한 단어가 없습니다.</Text>
+      {/* 못 외운 단어 목록 */}
+      <Text style={styles.sectionTitle}>못 외운 단어들</Text>
+      {difficultWords.length === 0 ? (
+        <Text style={styles.emptyText}>아직 못 외운 단어가 없습니다.</Text>
       ) : (
-        filteredContent.map((item) => (
-          <View key={item.id} style={styles.wordCard}>
+        difficultWords.map((word) => (
+          <Animated.View 
+            key={word.id} 
+            style={[
+              styles.wordCard,
+              {
+                opacity: fadeAnim,
+                transform: [{ scale: scaleAnim }]
+              }
+            ]}
+          >
             <View style={styles.wordHeader}>
-              <Text style={styles.wordKo}>{item.koreanWord}</Text>
-              <Text style={styles.wordVi}>{item.vietnameseWord}</Text>
-              <Text style={styles.difficulty}>
-                {'★'.repeat(item.difficulty ?? 2)}
-              </Text>
+              <Text style={styles.wordTitle}>{word.word}</Text>
+              <Pressable 
+                style={styles.detailButton} 
+                onPress={() => openWordDetail(word)}
+              >
+                <Text style={styles.detailButtonText}>+</Text>
+              </Pressable>
             </View>
+            <Text style={styles.wordSubtitle}>{word.vietnameseWord}</Text>
             
-            <View style={styles.relatedTerms}>
-              {item.relatedTerms.map((term, i) => (
-                <View key={i} style={styles.termRow}>
-                  <Text style={styles.termKo}>{term.korean}</Text>
-                  <Text style={styles.termVi}>{term.vietnamese}</Text>
-                </View>
-              ))}
+            <View style={styles.cardActions}>
+              <Pressable style={styles.audioButton}>
+                <Text style={styles.audioButtonText}>🔊 듣기</Text>
+              </Pressable>
+              <Pressable 
+                style={[styles.checkbox, checkedWords[word.id] && styles.checkboxOn]} 
+                onPress={() => toggleCheckbox(word.id)}
+              >
+                <Text style={[styles.checkboxText, checkedWords[word.id] && { color: 'white' }]}>
+                  {checkedWords[word.id] ? '✓' : '☐'}
+                </Text>
+              </Pressable>
             </View>
-            
-            <Pressable 
-              style={[styles.checkbox, styles.checkboxOn]} 
-              onPress={() => toggleCheck(item.id)}
-            >
-              <Text style={styles.checkboxText}>✓</Text>
-            </Pressable>
+          </Animated.View>
+        ))
+      )}
+
+      {/* 틀린 문장 목록 */}
+      <Text style={styles.sectionTitle}>틀린 문장들</Text>
+      {wrongSentences.length === 0 ? (
+        <Text style={styles.emptyText}>아직 틀린 문장이 없습니다.</Text>
+      ) : (
+        wrongSentences.map((sentence) => (
+          <View key={sentence.id} style={styles.sentenceCard}>
+            <View style={styles.sentenceHeader}>
+              <Text style={styles.sentenceTitle}>베트남어</Text>
+              <Pressable 
+                style={styles.removeButton} 
+                onPress={() => removeWrongSentence(sentence.id)}
+              >
+                <Text style={styles.removeButtonText}>✓</Text>
+              </Pressable>
+            </View>
+            <Text style={styles.vietnameseText}>{sentence.vietnameseSentence}</Text>
+            <Text style={styles.sentenceSubtitle}>틀린 답: {sentence.wrongAnswer}</Text>
+            <Text style={styles.correctAnswer}>정답: {sentence.correctAnswer}</Text>
+            <Text style={styles.categoryText}>{sentence.category}</Text>
+            <Text style={styles.timestampText}>
+              {new Date(sentence.timestamp).toLocaleDateString()}
+            </Text>
           </View>
         ))
       )}
+
+      {/* 상세보기 모달 */}
+      <Modal
+        visible={modalVisible}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={closeModal}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            {/* 닫기 버튼 */}
+            <Pressable style={styles.closeButton} onPress={closeModal}>
+              <Text style={styles.closeButtonText}>✕</Text>
+            </Pressable>
+            
+            {/* 단어 상세 정보 */}
+            {selectedWord && (
+              <View style={styles.wordDetailContent}>
+                <Text style={styles.detailWordTitle}>{selectedWord.word}</Text>
+                <Text style={styles.detailWordSubtitle}>{selectedWord.vietnameseWord}</Text>
+                <Text style={styles.detailCategory}>{selectedWord.category}</Text>
+                
+                {/* 예시 문장 */}
+                <View style={styles.exampleSection}>
+                  <Text style={styles.exampleLabel}>예시 문장:</Text>
+                  <Text style={styles.exampleText}>{selectedWord.exampleKo}</Text>
+                  <Text style={styles.exampleTranslation}>{selectedWord.exampleVi}</Text>
+                </View>
+                
+                {/* 연관 단어들 */}
+                <View style={styles.relatedSection}>
+                  <Text style={styles.relatedLabel}>관련 단어:</Text>
+                  {selectedWord.relatedTerms?.map((term: any, index: number) => (
+                    <View key={index} style={styles.relatedTerm}>
+                      <Text style={styles.termKorean}>{term.korean}</Text>
+                      <Text style={styles.termVietnamese}>{term.vietnamese}</Text>
+                    </View>
+                  ))}
+                </View>
+              </View>
+            )}
+          </View>
+        </View>
+      </Modal>
     </ScrollView>
   );
 }
@@ -167,6 +331,9 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#546E7A',
   },
+  statDetails: {
+    alignItems: 'flex-end',
+  },
   progressText: {
     fontSize: 14,
     color: '#1976D2',
@@ -199,6 +366,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 12,
+  },
+  headerButtons: {
+    flexDirection: 'row',
+    gap: 8,
   },
   wordKo: {
     fontSize: 18,
@@ -234,19 +405,225 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   checkbox: {
-    width: 28,
-    height: 28,
+    width: 32,
+    height: 32,
     borderRadius: 6,
     alignItems: 'center',
     justifyContent: 'center',
-    alignSelf: 'flex-end',
+    borderWidth: 2,
+    borderColor: '#E0E0E0',
+    backgroundColor: 'white',
   },
   checkboxOn: {
     backgroundColor: '#1E88E5',
     borderColor: '#1E88E5',
   },
   checkboxText: {
+    color: '#90A4AE',
+    fontWeight: '800',
+    fontSize: 16,
+  },
+  wordTitle: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#1A237E',
+    flex: 1,
+  },
+  wordSubtitle: {
+    fontSize: 16,
+    color: '#546E7A',
+    marginBottom: 16,
+    textAlign: 'center',
+  },
+  detailButton: {
+    width: 28,
+    height: 28,
+    borderRadius: 6,
+    backgroundColor: '#2196F3',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  detailButtonText: {
+    fontSize: 14,
+    color: 'white',
+    fontWeight: '600',
+  },
+  cardActions: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  audioButton: {
+    backgroundColor: '#00BCD4',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+  },
+  audioButtonText: {
+    color: 'white',
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  removeButton: {
+    width: 28,
+    height: 28,
+    borderRadius: 6,
+    backgroundColor: '#4CAF50',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  removeButtonText: {
     color: 'white',
     fontWeight: '800',
+  },
+  categoryText: {
+    fontSize: 14,
+    color: '#546E7A',
+    marginBottom: 8,
+  },
+  timestampText: {
+    fontSize: 12,
+    color: '#90A4AE',
+    fontStyle: 'italic',
+  },
+  sentenceCard: {
+    backgroundColor: 'white',
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 12,
+    shadowColor: '#000',
+    shadowOpacity: 0.06,
+    shadowRadius: 6,
+    elevation: 2,
+  },
+  sentenceHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  sentenceTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#1A237E',
+  },
+  vietnameseText: {
+    fontSize: 16,
+    color: '#37474F',
+    marginBottom: 8,
+    fontStyle: 'italic',
+  },
+  sentenceSubtitle: {
+    fontSize: 14,
+    color: '#F44336',
+    marginBottom: 4,
+  },
+  correctAnswer: {
+    fontSize: 14,
+    color: '#4CAF50',
+    fontWeight: '600',
+    marginBottom: 8,
+  },
+  // 모달 스타일
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    borderRadius: 16,
+    padding: 20,
+    width: '90%',
+    maxHeight: '80%',
+    position: 'relative',
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 16,
+    right: 16,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: '#F5F5F5',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 1,
+  },
+  closeButtonText: {
+    fontSize: 18,
+    color: '#90A4AE',
+    fontWeight: '700',
+  },
+  wordDetailContent: {
+    marginTop: 20,
+  },
+  detailWordTitle: {
+    fontSize: 24,
+    fontWeight: '800',
+    color: '#1A237E',
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  detailWordSubtitle: {
+    fontSize: 18,
+    color: '#546E7A',
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  detailCategory: {
+    fontSize: 14,
+    color: '#90A4AE',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  exampleSection: {
+    marginBottom: 20,
+  },
+  exampleLabel: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#37474F',
+    marginBottom: 8,
+  },
+  exampleText: {
+    fontSize: 16,
+    color: '#1A237E',
+    marginBottom: 4,
+    lineHeight: 22,
+  },
+  exampleTranslation: {
+    fontSize: 14,
+    color: '#546E7A',
+    fontStyle: 'italic',
+    lineHeight: 20,
+  },
+  relatedSection: {
+    marginBottom: 20,
+  },
+  relatedLabel: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#37474F',
+    marginBottom: 8,
+  },
+  relatedTerm: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    backgroundColor: '#F5F5F5',
+    borderRadius: 8,
+  },
+  termKorean: {
+    fontSize: 14,
+    color: '#37474F',
+    fontWeight: '600',
+  },
+  termVietnamese: {
+    fontSize: 14,
+    color: '#546E7A',
   },
 });

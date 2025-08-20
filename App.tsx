@@ -44,7 +44,7 @@ export default function App() {
         <Stack.Screen
           name="Writing"
           component={WritingScreen}
-          options={{ title: 'Viết' }}
+          options={{ title: '문장 연습' }}
         />
         <Stack.Screen
           name="Review"

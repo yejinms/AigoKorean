@@ -18,6 +18,7 @@ type Item = {
   audioExampleKoURL?: string;
   relatedTerms: RelatedItem[];
   difficulty?: 1 | 2 | 3; // 별 1~3
+  category?: string; // 카테고리 추가
 };
 
 export default function VocabularyScreen() {
@@ -83,6 +84,10 @@ export default function VocabularyScreen() {
           // 왼쪽 스와이프 → 못 외운 것 (빨간색 X)
           setSwipeDirection('left');
           setSwipeProgress(1);
+          
+          // 못 외운 단어를 AsyncStorage에 저장
+          saveDifficultWord(item);
+          
           Animated.timing(translateX, { toValue: -screenWidth * 1.2, duration: 150, useNativeDriver: false }).start(() => {
             translateX.setValue(0);
             goNext();
@@ -130,27 +135,48 @@ export default function VocabularyScreen() {
 
   const allChecked = useMemo(() => item.relatedTerms.some((_, i) => checked[i]), [item, checked]);
 
+  // 못 외운 단어를 AsyncStorage에 저장하는 함수
+  const saveDifficultWord = async (wordItem: Item) => {
+    try {
+      const savedDifficultWords = await AsyncStorage.getItem('difficultWords');
+      let difficultWords = savedDifficultWords ? JSON.parse(savedDifficultWords) : [];
+      
+      // 이미 저장된 단어인지 확인
+      const existingIndex = difficultWords.findIndex((w: any) => w.id === wordItem.id);
+      
+      if (existingIndex === -1) {
+        // 새로운 못 외운 단어 추가
+        difficultWords.push({
+          id: wordItem.id,
+          word: wordItem.koreanWord,
+          category: wordItem.category || '기타',
+          timestamp: new Date().toISOString()
+        });
+        
+        await AsyncStorage.setItem('difficultWords', JSON.stringify(difficultWords));
+      }
+    } catch (error) {
+      console.error('못 외운 단어 저장 실패:', error);
+    }
+  };
+
   const toggleCheck = async (i: number) => {
     const newChecked = { ...checked, [i]: !checked[i] };
     setChecked(newChecked);
     
     try {
-      // 현재 단어의 체크 상태를 AsyncStorage에 저장
-      const currentWordChecked = newChecked[i];
-      const savedCheckedWords = await AsyncStorage.getItem('checkedWords');
-      let allCheckedWords = savedCheckedWords ? JSON.parse(savedCheckedWords) : {};
+      // 연관단어 체크 상태를 해당 단어카드에만 저장 (복습과 무관)
+      const savedRelatedTerms = await AsyncStorage.getItem('relatedTermsChecked');
+      let allRelatedTerms = savedRelatedTerms ? JSON.parse(savedRelatedTerms) : {};
       
-      if (currentWordChecked) {
-        // 체크된 경우: 현재 단어 ID를 저장
-        allCheckedWords[item.id] = true;
-      } else {
-        // 체크 해제된 경우: 현재 단어 ID를 제거
-        delete allCheckedWords[item.id];
+      if (!allRelatedTerms[item.id]) {
+        allRelatedTerms[item.id] = new Array(item.relatedTerms.length).fill(false);
       }
       
-      await AsyncStorage.setItem('checkedWords', JSON.stringify(allCheckedWords));
+      allRelatedTerms[item.id][i] = newChecked[i];
+      await AsyncStorage.setItem('relatedTermsChecked', JSON.stringify(allRelatedTerms));
     } catch (error) {
-      console.error('체크 상태 저장 실패:', error);
+      console.error('연관단어 체크 상태 저장 실패:', error);
     }
   };
 

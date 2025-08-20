@@ -16,7 +16,15 @@
       { "korean": "관절염", "vietnamese": "Viêm khớp" },
       { "korean": "통증", "vietnamese": "Đau" }
     ],
-    "writingChallenge": "가족력이 있어서 조심해야 해요."
+    "vietnameseSentence": "Bà có đau ở đâu không?",
+    "koreanOptions": [
+      "할머니, 어디가 아프신가요?",
+      "할머니, 오늘 기분은 어떠세요?",
+      "할머니, 식사는 하셨나요?"
+    ],
+    "correctAnswer": 0,
+    "explanation": "병원에서 환자의 증상을 문의할 때 사용하는 표현입니다.",
+    "usage": "의료진이 환자에게 통증 부위를 물어볼 때"
   },
   {
     "id": 2,
@@ -35,7 +43,15 @@
       { "korean": "방문목욕", "vietnamese": "Hỗ trợ tắm tại nhà" },
       { "korean": "재가급여", "vietnamese": "Dịch vụ chăm sóc tại nhà" }
     ],
-    "writingChallenge": "요양보호사가 방문해서 도움을 주었습니다."
+    "vietnameseSentence": "Bà có cần giúp đỡ gì không?",
+    "koreanOptions": [
+      "할머니, 도움이 필요하신가요?",
+      "할머니, 목욕하시겠어요?",
+      "할머니, 식사하시겠어요?"
+    ],
+    "correctAnswer": 0,
+    "explanation": "요양보호사가 노인의 필요를 확인할 때 사용하는 표현입니다.",
+    "usage": "노인의 도움이 필요한 상황을 파악할 때"
   },
   {
     "id": 3,
@@ -54,7 +70,15 @@
       { "korean": "급여", "vietnamese": "Dịch vụ được cung cấp" },
       { "korean": "본인부담금", "vietnamese": "Phí tự chi trả" }
     ],
-    "writingChallenge": "장기요양보험으로 서비스를 받을 수 있어요."
+    "vietnameseSentence": "Bảo hiểm này có thể giúp gì cho bà?",
+    "koreanOptions": [
+      "이 보험으로 어떤 도움을 받을 수 있나요?",
+      "보험료는 얼마인가요?",
+      "언제부터 사용할 수 있나요?"
+    ],
+    "correctAnswer": 0,
+    "explanation": "장기요양보험의 혜택에 대해 문의할 때 사용하는 표현입니다.",
+    "usage": "보험 서비스의 내용을 확인할 때"
   },
   {
     "id": 4,

@@ -24,8 +24,8 @@ export default function MainScreen({ navigation }: Props) {
       <Pressable style={styles.card} onPress={() => navigation.navigate('Writing')}>
         <View style={styles.cardContent}>
           <View style={styles.cardLeft}>
-            <View style={styles.cardDot} />
-            <Text style={styles.cardTitle}>Viết</Text>
+            <View style={[styles.cardDot, { backgroundColor: '#00BCD4' }]} />
+            <Text style={styles.cardTitle}>문장 연습</Text>
           </View>
           <Text style={styles.cardArrow}>→</Text>
         </View>
