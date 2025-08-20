@@ -46,17 +46,17 @@ export default function App() {
         <Stack.Screen
           name="Writing"
           component={WritingScreen}
-          options={{ title: '문장 연습' }}
+          options={{ title: 'Luyện câu' }}
         />
         <Stack.Screen
           name="Review"
           component={ReviewScreen}
-          options={{ title: '복습하기' }}
+          options={{ title: 'Ôn tập' }}
         />
         <Stack.Screen
           name="MessageWriting"
           component={MessageWritingScreen}
-          options={{ title: '문자 연습' }}
+          options={{ title: 'Luyện tin nhắn' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

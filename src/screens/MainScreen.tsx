@@ -25,7 +25,7 @@ export default function MainScreen({ navigation }: Props) {
         <View style={styles.cardContent}>
           <View style={styles.cardLeft}>
             <View style={[styles.cardDot, { backgroundColor: '#00BCD4' }]} />
-            <Text style={styles.cardTitle}>문장 연습</Text>
+            <Text style={styles.cardTitle}>Luyện câu</Text>
           </View>
           <Text style={styles.cardArrow}>→</Text>
         </View>
@@ -35,7 +35,7 @@ export default function MainScreen({ navigation }: Props) {
         <View style={styles.cardContent}>
           <View style={styles.cardLeft}>
             <View style={[styles.cardDot, { backgroundColor: '#9C27B0' }]} />
-            <Text style={styles.cardTitle}>문자 연습</Text>
+            <Text style={styles.cardTitle}>Luyện tin nhắn</Text>
           </View>
           <Text style={styles.cardArrow}>→</Text>
         </View>
@@ -55,7 +55,7 @@ export default function MainScreen({ navigation }: Props) {
         <View style={styles.cardContent}>
           <View style={styles.cardLeft}>
             <View style={[styles.cardDot, { backgroundColor: '#1E88E5' }]} />
-            <Text style={styles.cardTitle}>복습하기</Text>
+            <Text style={styles.cardTitle}>Ôn tập</Text>
           </View>
           <Text style={styles.cardArrow}>→</Text>
         </View>

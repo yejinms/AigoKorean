@@ -120,7 +120,7 @@ export default function MessageWritingScreen() {
 
   const requestAICorrection = async () => {
     if (!message.trim()) {
-      Alert.alert('알림', '문자를 입력해주세요.');
+      Alert.alert('Thông báo', 'Vui lòng nhập tin nhắn.');
       return;
     }
 
@@ -197,13 +197,13 @@ export default function MessageWritingScreen() {
 
   const goToMain = () => {
     // 메인 화면으로 이동 (네비게이션 구현 필요)
-    Alert.alert('축하합니다!', '메인 화면으로 이동합니다.');
+    Alert.alert('Chúc mừng!', 'Chuyển về màn hình chính.');
   };
 
   if (!item || !item.scenarioData) {
     return (
       <View style={styles.container}>
-        <Text style={styles.errorText}>시나리오를 불러올 수 없습니다.</Text>
+        <Text style={styles.errorText}>Không thể tải kịch bản.</Text>
       </View>
     );
   }
@@ -215,14 +215,14 @@ export default function MessageWritingScreen() {
       {/* 사용량 표시 */}
       <View style={styles.usageContainer}>
         <Text style={styles.usageText}>
-          {isPremium ? '프리미엄 사용자' : `오늘 남은 횟수: ${remainingUsage}회`}
+          {isPremium ? 'Người dùng Premium' : `Số lần còn lại hôm nay: ${remainingUsage}`}
         </Text>
         {!isPremium && (
           <Pressable 
             style={styles.premiumButton} 
             onPress={() => setShowPremiumModal(true)}
           >
-            <Text style={styles.premiumButtonText}>프리미엄 업그레이드</Text>
+            <Text style={styles.premiumButtonText}>Nâng cấp Premium</Text>
           </Pressable>
         )}
       </View>
@@ -238,21 +238,21 @@ export default function MessageWritingScreen() {
           onPress={() => setShowHint(!showHint)}
         >
           <Text style={styles.hintButtonText}>
-            {showHint ? '💡 힌트 숨기기' : '💡 힌트 보기'}
+            {showHint ? '💡 Ẩn gợi ý' : '💡 Xem gợi ý'}
           </Text>
         </Pressable>
 
         {/* 힌트 내용 */}
         {showHint && (
           <View style={styles.hintContainer}>
-            <Text style={styles.hintTitle}>📝 예시 메시지</Text>
+            <Text style={styles.hintTitle}>📝 Tin nhắn mẫu</Text>
             {item.scenarioData.sampleMessages.map((sample, idx) => (
               <Text key={idx} style={styles.hintText}>
                 {idx + 1}. {sample}
               </Text>
             ))}
             <Text style={styles.hintSubtitle}>
-              이런 식으로 작성해보세요!
+              Hãy viết theo cách này!
             </Text>
           </View>
         )}
@@ -260,12 +260,12 @@ export default function MessageWritingScreen() {
 
       {/* 문자 작성 입력창 */}
       <View style={styles.inputContainer}>
-        <Text style={styles.inputTitle}>문자 작성하기</Text>
+        <Text style={styles.inputTitle}>Viết tin nhắn</Text>
         <TextInput
           style={styles.textInput}
           value={message}
           onChangeText={setMessage}
-          placeholder="여기에 문자를 작성하세요... (200자 제한)"
+          placeholder="Viết tin nhắn ở đây... (giới hạn 200 ký tự)"
           placeholderTextColor="#90A4AE"
           multiline
           maxLength={200}
@@ -282,19 +282,19 @@ export default function MessageWritingScreen() {
           onPress={requestAICorrection}
           disabled={!message.trim()}
         >
-          <Text style={styles.submitButtonText}>AI 첨삭 요청</Text>
+          <Text style={styles.submitButtonText}>Yêu cầu sửa lỗi AI</Text>
         </Pressable>
       </View>
 
       {/* AI 피드백 - 인라인 교정 */}
       {showFeedback && (
         <View style={styles.feedbackContainer}>
-          <Text style={styles.feedbackTitle}>🤖 AI 첨삭 결과</Text>
+          <Text style={styles.feedbackTitle}>🤖 AI sửa lỗi kết quả</Text>
           
           {/* 교정된 메시지 표시 */}
           <View style={styles.correctedMessageContainer}>
             <Text style={styles.correctedMessageLabel}>
-              {feedbackLanguage === 'ko' ? '교정된 메시지' : 'Tin nhắn đã sửa'}
+              {feedbackLanguage === 'ko' ? 'Tin nhắn đã sửa' : 'Tin nhắn đã sửa'}
             </Text>
             <Text style={styles.correctedMessageText}>
               {getMockAICorrection(message)}
@@ -304,10 +304,10 @@ export default function MessageWritingScreen() {
           {/* 간단한 코멘트 */}
           <View style={styles.commentContainer}>
             <Text style={styles.commentTitle}>
-              {feedbackLanguage === 'ko' ? '💬 코멘트' : '💬 Nhận xét'}
+              💬 Nhận xét
             </Text>
             <Text style={styles.commentText}>
-              존댓말과 정중한 표현을 잘 사용했습니다. 더 자연스러운 한국어 표현으로 개선되었습니다.
+              Bạn đã sử dụng kính ngữ và cách diễn đạt lịch sự rất tốt. Đã được cải thiện thành cách diễn đạt tiếng Hàn tự nhiên hơn.
             </Text>
           </View>
 
@@ -328,7 +328,7 @@ export default function MessageWritingScreen() {
               onPress={goPrevious}
               disabled={index === 0}
             >
-              <Text style={styles.navButtonText}>← 이전</Text>
+              <Text style={styles.navButtonText}>← Trước</Text>
             </Pressable>
             
             <Pressable 
@@ -336,7 +336,7 @@ export default function MessageWritingScreen() {
               onPress={goNext}
             >
               <Text style={styles.navButtonText}>
-                {index === items.length - 1 ? '완료' : '다음 →'}
+                {index === items.length - 1 ? 'Hoàn thành' : 'Tiếp theo →'}
               </Text>
             </Pressable>
           </View>
@@ -346,7 +346,7 @@ export default function MessageWritingScreen() {
       {/* 진행률 정보 */}
       <View style={styles.progressInfo}>
         <Text style={styles.progressText}>
-          {index + 1} / {items.length} 시나리오
+          {index + 1} / {items.length} kịch bản
         </Text>
       </View>
 
@@ -359,27 +359,27 @@ export default function MessageWritingScreen() {
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>🌟 프리미엄 업그레이드</Text>
+            <Text style={styles.modalTitle}>🌟 Nâng cấp Premium</Text>
             <Text style={styles.modalSubtitle}>
-              무제한 AI 첨삭과 고급 기능을 이용해보세요!
+              Sử dụng các tính năng AI không giới hạn và các tính năng nâng cao!
             </Text>
             
             <View style={styles.premiumFeatures}>
-              <Text style={styles.featureText}>✅ 무제한 AI 첨삭</Text>
-              <Text style={styles.featureText}>✅ 발음 연습 및 오디오 피드백</Text>
-              <Text style={styles.featureText}>✅ 고급 분석 및 통계</Text>
-              <Text style={styles.featureText}>✅ 개인화된 학습 추천</Text>
+              <Text style={styles.featureText}>✅ AI sửa lỗi không giới hạn</Text>
+              <Text style={styles.featureText}>✅ Luyện phát âm và phản hồi âm thanh</Text>
+              <Text style={styles.featureText}>✅ Phân tích và thống kê nâng cao</Text>
+              <Text style={styles.featureText}>✅ Học tự động đề xuất cá nhân</Text>
             </View>
 
             <Text style={styles.developmentNote}>
-              🚧 현재 개발 중입니다. 곧 서비스가 시작됩니다!
+              🚧 Đang phát triển. Dịch vụ sẽ sớm khởi động!
             </Text>
 
             <Pressable 
               style={styles.modalButton} 
               onPress={() => setShowPremiumModal(false)}
             >
-              <Text style={styles.modalButtonText}>확인</Text>
+              <Text style={styles.modalButtonText}>Xác nhận</Text>
             </Pressable>
           </View>
         </View>
@@ -407,19 +407,19 @@ export default function MessageWritingScreen() {
               <Text style={styles.confettiText}>🎉🎊🎈</Text>
             </Animated.View>
             
-            <Text style={styles.celebrationTitle}>🎉 축하합니다! 🎉</Text>
+            <Text style={styles.celebrationTitle}>🎉 Chúc mừng! 🎉</Text>
             <Text style={styles.celebrationSubtitle}>
-              모든 문자 연습을 완료했습니다!
+              Hoàn thành tất cả các bài tập viết tin nhắn!
             </Text>
             <Text style={styles.celebrationMessage}>
-              요양보호사로서 실용적인 한국어 문자 작성 능력이 크게 향상되었습니다.
+              Kỹ năng viết tin nhắn tiếng Hàn thực tế của bạn với tư cách là người chăm sóc đã được cải thiện đáng kể.
             </Text>
             
             <Pressable 
               style={styles.celebrationButton} 
               onPress={goToMain}
             >
-              <Text style={styles.celebrationButtonText}>메인으로 돌아가기</Text>
+              <Text style={styles.celebrationButtonText}>Trở về trang chủ</Text>
             </Pressable>
           </View>
         </View>
